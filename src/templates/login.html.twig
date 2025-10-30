@@ -1,0 +1,161 @@
+{%extends 'base_public.html.twig' %}
+
+{% block title %}Login - TicketFlow{% endblock %}
+
+{% block body %}
+<div class="page flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 px-4">
+  <form method="post" class="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-lg w-full max-w-md animate-bounce-in">
+    <h2 class="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Welcome Back</h2>
+
+    {# Flash messages (server-side) #}
+    {% if errors.general %}
+      <div class="mb-4 px-4 py-3 rounded-md text-sm bg-red-50 text-red-800">
+        {{ errors.general }}
+      </div>
+    {% endif %}
+    
+    {% ifapp.flashes %}
+      {% for label, messages in app.flashes %}
+        {% for msg in messages %}
+          <div class="mb-4 px-4 py-3 rounded-md text-sm {{ label== 'success' ? 'bg-green-50 text-green-800' : label == 'error' ? 'bg-red-50 text-red-800' : 'bg-gray-50 text-gray-800' }}">
+           {{ msg }}
+          </div>
+        {% endfor%}
+      {% endfor %}
+    {% elseif flash_message is defined %}
+      <div class="mb-4 px-4 py-3 rounded-md text-sm {{ flash_type|default('info') == 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800' }}">
+        {{ flash_message }}
+      </div>
+    {% endif %}
+
+    {# Email field #}
+    <div class="mb-3">
+      <label class="block text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">Email</label>
+      <input
+        type="email"
+        name="email"
+        value="{{ last_username|default('') }}"
+        class="w-full p-2 border rounded-md dark:bg-gray-700 dark:text-white {{ errors.email ? 'border-red-500' : '' }}"
+        requiredautofocus
+      />
+      {% if errors.email %}
+        <p class="text-red-500 text-sm mt-1">{{ errors.email }}</p>
+      {% endif %}
+    </div>
+
+   {# Password field #}
+    <div class="mb-3">
+      <label class="block text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">Password</label>
+      <input
+        type="password"
+        name="password"
+        class="w-full p-2 border rounded-md dark:bg-gray-700 dark:text-white {{ errors.password ? 'border-red-500' : '' }}"
+        required
+      />
+      {% if errors.password %}
+        <p class="text-red-500 text-sm mt-1">{{ errors.password }}</p>
+     {%endif %}
+    </div>
+
+    {# Submit button #}
+    <div class="w-full flex flex-col sm:flex-row justify-between items-center gap-3 mt-5">
+      <button type="submit" class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md transition">
+Login
+      </button>
+    </div>
+
+    <p class="text-sm text-center mt-4 text-gray-600 dark:text-gray-300">Don't have an account? <a href="/signup" class="text-indigo-600 hover:underline">Sign up</a></p>
+
+    <div class="text-center mt-4">
+      <a href="/" class="text-indigo-600 hover:text-indigo-800 font-semibold transition btn-bounce">← Back to Home</a>
+    </div>
+  </form>
+</div>
+{% endblock%}
+
+{% block javascripts %}
+<script>
+    // Client-side validation
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginButton = document.getElementById('loginButton');
+
+       constvalidateEmail = (email) => {
+            if (!email.trim()) return 'Email is required';
+            if (!/\S+@\S+\.\S+/.test(email)) return 'Enter a valid email address';
+            return '';
+        };
+
+        const validatePassword = (password) => {
+            if (!password)return'Password is required';
+            if (password.length < 6) return 'Password must be at least 6 characters';
+            return '';
+        };
+
+        const showError = (input, message) => {
+            const errorElement = input.parentElement.querySelector('.text-red-500');
+            if (!errorElement) {
+const p = document.createElement('p');
+                p.className = 'text-red-500 text-sm mt-1';
+                p.textContent = message;
+                input.parentElement.appendChild(p);
+            } else {
+                errorElement.textContent = message;
+            }
+            input.classList.add('border-red-500');
+        };
+
+const clearError = (input) => {
+            const errorElement = input.parentElement.querySelector('.text-red-500');
+            if (errorElement) {
+                errorElement.remove();
+            }
+            input.classList.remove('border-red-500');
+        };
+
+        // Clear errors when typing
+        [emailInput,passwordInput].forEach(input => {
+            input.addEventListener('input', () => clearError(input));
+        });
+
+        // Validate on blur
+        emailInput.addEventListener('blur', () => {
+            const error = validateEmail(emailInput.value);
+            if (error) showError(emailInput, error);
+        });
+
+        passwordInput.addEventListener('blur', () => {
+            const error = validatePassword(passwordInput.value);
+            if (error) showError(passwordInput, error);
+        });
+
+        // Form submission
+        form.addEventListener('submit', (e) => {
+            let hasErrors = false;
+            
+            // Validate email
+            const emailError = validateEmail(emailInput.value);
+            if (emailError) {
+                showError(emailInput, emailError);
+                hasErrors = true;
+            }
+
+            // Validate password
+            const passwordError = validatePassword(passwordInput.value);
+            if (passwordError) {
+                showError(passwordInput, passwordError);
+                hasErrors = true;
+            }
+
+if (hasErrors) {
+                e.preventDefault();
+            } else {
+                loginButton.textContent = 'Logging in...';
+                loginButton.disabled = true;
+            }
+        });
+    });
+</script>
+{% endblock %}

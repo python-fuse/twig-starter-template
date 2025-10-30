@@ -1,0 +1,98 @@
+{% extends 'base_app.html.twig' %}
+
+{% block title %}Tickets - TicketFlow{% endblock %}
+
+{% block body %}
+<!-- Navbar -->
+<nav class="bg-white shadow-sm border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center">
+        <h1 class="text-xl font-bold text-gray-800 dark:text-white">TicketFlow</h1>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="/dashboard" class="hidden md:inline-flex items-center text-gray-600 hover:text-gray-800 font-medium dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md">
+          Dashboard
+        </a>
+
+        <a href="/dashboard" class="inline-flex md:hidden items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600" aria-label="Dashboard">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 3v18h18V3H3zm2 2h14v14H5V5zm7 2v10m-5-5h10"/></svg>
+        </a>
+
+        <a href="/logout" class="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h12m0 0l-4-4m4 4l-4 4m-8 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2"/></svg>
+          Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+      <div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-2 dark:text-white">Ticket Management</h2>
+        <p class="text-gray-600 dark:text-gray-300">Create, view, edit, and delete tickets</p>
+      </div>
+
+      <div class="flex gap-2 w-full md:w-auto">
+        <div class="relative flex-1 md:w-64">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+          <input type="text" placeholder="Search tickets..." class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+        </div>
+
+        <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-all flex items-center gap-2 whitespace-nowrap">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 5v14m7-7H5"/></svg>
+          <span class="hidden sm:inline">New Ticket</span>
+          <span class="sm:hidden">New</span>
+        </a>
+      </div>
+    </div>
+
+    <div id="ticket-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% if tickets|length == 0 %}
+        <div class="col-span-full text-center py-12">
+          <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M2 9.5V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2.5a2 2 0 0 1-2 2V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5.5a2 2 0 0 1 2-2z"/></svg>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2 dark:text-white">No tickets yet</h3>
+          <p class="text-gray-600 mb-6 dark:text-gray-300">Create your first ticket to get started</p>
+          <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all inline-flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 5v14m7-7H5"/></svg>
+            Create Ticket
+          </a>
+        </div>
+      {% else %}
+        {% for ticket in tickets %}
+          <div class="relative bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-all dark:bg-gray-800 dark:border-gray-700">
+            <div class="absolute bottom-4 right-4 flex items-center gap-2">
+              <a href="#" class="p-2 rounded-full text-blue-50 bg-blue-600 hover:bg-blue-700 transition-colors" aria-label="Edit ticket">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+              </a>
+              <a href="#" class="p-2 rounded-full text-red-50 bg-red-600 hover:bg-red-700 transition-colors" aria-label="Delete ticket">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+              </a>
+            </div>
+            <div class="flex items-start gap-4 mb-4">
+              <h3 class="text-lg font-bold text-gray-800 flex-1 pr-12 dark:text-white">{{ ticket.title }}</h3>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold border {{ ticket.status == 'open' ? 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900 dark:text-green-200 dark:border-green-700' : ticket.status == 'in_progress' ? 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900 dark:text-yellow-200 dark:border-yellow-700' : 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600' }}">
+                {{ ticket.status|replace({'_': ' '})|upper }}
+              </span>
+            </div>
+            {% if ticket.description %}
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2 dark:text-gray-300">{{ ticket.description }}</p>
+            {% endif %}
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-xs px-2 py-1 rounded {{ ticket.priority == 'high' ? 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200' : ticket.priority == 'medium' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200' : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200' }}">
+                {{ ticket.priority|upper }}
+              </span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">{{ ticket.createdAt|date('Y-m-d') }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

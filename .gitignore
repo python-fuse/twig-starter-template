@@ -1,6 +1,8 @@
 # OS / misc
 .DS_Store
 Thumbs.db
+*.swp
+*.tmp
 
 # IDEs
 /.idea/
@@ -30,6 +32,7 @@ yarn-error.log*
 /var/
 /var/*
 !/var/.gitkeep
+/cache/twig/
 
 # Build / compiled assets
 /public/build/
@@ -51,5 +54,11 @@ phpunit-result-*
 *.gz
 *.cache
 
+# Data files (should not be committed)
+/data/
+*.json
+
 # Other
 .vagrant/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{% block title %}Ticket App{% endblock %}</title>
+    <link href="/build/styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <main class="min-h-screen">
+        {% block body %}{% endblock %}
+    </main>
+
+    {% include 'footer.html.twig' %}
+    {% include 'components/toast.html.twig' %}
+
+    <script>
+      // Dark mode toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (darkModeToggle) {
+          darkModeToggle.addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+              document.documentElement.classList.remove('dark');
+              localStorage.theme = 'light';
+            } else {
+              document.documentElement.classList.add('dark');
+              localStorage.theme = 'dark';
+            }
+          });
+        }
+      });
+    </script>
+    
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

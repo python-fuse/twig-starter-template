@@ -1,0 +1,53 @@
+<div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 z-50 max-w-md hidden">
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path d="M5 13l4 4L19 7"></path>
+  </svg>
+  <span id="toast-message" class="flex-1"></span>
+  <button id="toast-close" class="hover:bg-white/20 rounded p-1">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+</div>
+
+<script>
+  function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+    const toastClose = document.getElementById('toast-close');
+    
+    // Set message
+    toastMessage.textContent = message;
+    
+    // Set type
+    toast.className = 'fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 z-50 max-w-md animate-bounce-in';
+    if (type === 'error') {
+      toast.classList.add('bg-red-500', 'text-white');
+      // Change icon to error
+      toast.innerHTML = toast.innerHTML.replace(
+        '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>',
+        '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>'
+      );
+    } else {
+      toast.classList.add('bg-green-500', 'text-white');
+      // Change icon to success
+      toast.innerHTML = toast.innerHTML.replace(
+        '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>',
+        '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>'
+      );
+    }
+    
+    // Show toast
+    toast.classList.remove('hidden');
+    
+    // Auto hide after 3.5 seconds
+    setTimeout(() => {
+      toast.classList.add('hidden');
+    }, 3500);
+    
+    // Close button
+    toastClose.onclick = () => {
+      toast.classList.add('hidden');
+    };
+  }
+</script>
