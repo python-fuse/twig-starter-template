@@ -14,8 +14,10 @@ $twig = new \Twig\Environment($loader, [
     'auto_reload' => true,
 ]);
 
-// Simple route-based router
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Parse and sanitize the request path
+$rawPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$path = filter_var($rawPath, FILTER_SANITIZE_URL);
+$path = preg_replace('/[^a-zA-Z0-9\-\/]/', '', $path);
 
 switch ($path) {
     case '/':
