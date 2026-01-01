@@ -12,8 +12,12 @@
     }
   },
   "scripts": {
-    "post-install-cmd": [
+    "build:css": [
+      "@php -r \"if (!file_exists('node_modules')) { echo 'Run npm install first'; exit(1); }\"",
       "npm run build:css"
+    ],
+    "post-install-cmd": [
+      "@php -r \"echo 'Run npm install && npm run build:css to compile Tailwind CSS'.PHP_EOL;\""
     ]
   },
   "authors": [
