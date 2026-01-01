@@ -29,7 +29,7 @@ $twig = new \Twig\Environment($loader, [
 // Global exception handler
 set_exception_handler(function (Throwable $e) use ($twig, $isProduction) {
     http_response_code(500);
-    
+
     if ($isProduction) {
         echo $twig->render('error.twig', [
             'title' => '500 Internal Server Error',
@@ -42,7 +42,7 @@ set_exception_handler(function (Throwable $e) use ($twig, $isProduction) {
             'trace' => $e->getTraceAsString(),
         ]);
     }
-    
+
     error_log($e->getMessage() . "\n" . $e->getTraceAsString());
 });
 
@@ -55,7 +55,7 @@ switch ($path) {
     case '/':
     case '/home':
         echo $twig->render('landing.twig', [
-            'title' => 'Landing Page - Twig Starter Template',
+            'title' => 'Home Page - Twig Starter Template',
         ]);
         break;
 
