@@ -1,0 +1,25 @@
+{# Error page template for 500 errors #}
+{% extends "base.twig" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <main class="min-h-screen flex flex-col items-center justify-center bg-red-50">
+        <div class="text-center">
+            <h1 class="text-9xl font-bold text-red-200">500</h1>
+            <h2 class="text-2xl font-semibold text-red-700 mt-4">{{ title }}</h2>
+            <p class="text-red-600 mt-2 max-w-md">{{ message }}</p>
+            
+            {% if trace is defined %}
+            <details class="mt-6 text-left bg-red-100 p-4 rounded-lg max-w-2xl">
+                <summary class="cursor-pointer text-red-800 font-medium">Stack Trace (Development Only)</summary>
+                <pre class="mt-2 text-xs text-red-700 overflow-x-auto whitespace-pre-wrap">{{ trace }}</pre>
+            </details>
+            {% endif %}
+            
+            <a href="/" class="mt-6 inline-block px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                Return to Home
+            </a>
+        </div>
+    </main>
+{% endblock %}
