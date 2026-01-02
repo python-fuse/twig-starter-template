@@ -83,19 +83,19 @@ twig-starter-template/
 ├── src/
 │   ├── index.php              # Main router & entry point
 │   ├── templates/             # Twig template files
-│   │   ├── base.twig         # Base layout (extend this)
-│   │   ├── landing.twig      # Landing page example
-│   │   ├── dashboard.twig    # Dashboard example
-│   │   └── 404.twig          # 404 error page
+│   │   ├── base.twig          # Base layout (extend this)
+│   │   ├── landing.twig       # Landing page example
+│   │   ├── dashboard.twig     # Dashboard example
+│   │   └── 404.twig           # 404 error page
 │   └── styles/
-│       ├── tailwind.css      # Tailwind input file
-│       └── output.css        # Generated CSS (don't edit)
-├── cache/twig/               # Twig template cache
-├── vendor/                   # Composer dependencies
-├── composer.json             # PHP dependencies
-├── package.json              # Node.js dependencies
-├── postcss.config.js         # PostCSS configuration
-└── README.md                 # You are here!
+│       ├── tailwind.css       # Tailwind input file (configure here)
+│       └── out.tailwind.css   # Generated CSS (don't edit)
+├── cache/twig/                # Twig template cache
+├── vendor/                    # Composer dependencies
+├── composer.json              # PHP dependencies
+├── package.json               # Node.js dependencies
+├── postcss.config.js          # PostCSS configuration
+└── README.md                  # You are here!
 ```
 
 ---
@@ -175,31 +175,35 @@ Twig is a modern, flexible, and secure templating engine for PHP. It separates y
 Edit `src/index.php` to add new routes:
 
 ```php
-switch($path){
+switch ($path) {
     case '/':
     case '/home':
         echo $twig->render('landing.twig', [
-            'title' => "Landing Page",
+            'title' => 'Landing Page',
             'user' => ['name' => 'John']
         ]);
         break;
 
     case '/about':
         echo $twig->render('about.twig', [
-            'title' => "About Us"
+            'title' => 'About Us'
         ]);
         break;
 
     default:
+        http_response_code(404);
         echo $twig->render('404.twig', [
-            'title' => "404 Not Found"
+            'title' => '404 Not Found'
         ]);
+        break;
 }
 ```
 
 ---
 
 ## 🎨 Using Tailwind CSS
+
+This template uses **Tailwind CSS v4** with the new CSS-first configuration approach.
 
 ### Adding Classes
 
@@ -240,22 +244,25 @@ $twig = new \Twig\Environment($loader, [
 ]);
 ```
 
-### Tailwind Configuration
+### Tailwind CSS v4 Configuration
 
-For advanced customization, create `tailwind.config.js`:
+Tailwind v4 uses a **CSS-first configuration** approach. All configuration is done in `src/styles/tailwind.css`:
 
-```javascript
-export default {
-  content: ["./src/templates/**/*.twig", "./src/**/*.php"],
-  theme: {
-    extend: {
-      colors: {
-        brand: "#3b82f6",
-      },
-    },
-  },
-};
+```css
+@import "tailwindcss";
+
+/* Content sources for class detection */
+@source "../templates/**/*.twig";
+@source "../**/*.php";
+
+/* Custom theme extensions */
+@theme {
+  --color-brand: #3b82f6;
+  --font-display: "Inter", sans-serif;
+}
 ```
+
+For more advanced customization, see the [Tailwind CSS v4 Documentation](https://tailwindcss.com/docs/v4-beta).
 
 ---
 

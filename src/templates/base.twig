@@ -1,13 +1,12 @@
-{# This is the base twig file, extend it from other twig files #}
+{# Base template - extend this in your page templates #}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Twig Starter Template{% endblock %}</title>
+        <title>{% block title %}{{ app_name }}{% endblock %}</title>
         {% block styles %}
             <link rel="stylesheet" href="/styles/out.tailwind.css">
-
         {% endblock %}
     </head>
 
@@ -17,8 +16,7 @@
         {% endblock %}
         
         {% block scripts %}
-            {# Import or write javascript directly inhere #}
-            {# <script src="script.js"></script> #}
+            {# Add your JavaScript here #}
         {% endblock %}
     </body>
 </html>

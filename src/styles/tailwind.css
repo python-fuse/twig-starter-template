@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+/* Explicit content sources for class detection */
+@source "../templates/**/*.twig";
+@source "../**/*.php";

@@ -4,9 +4,7 @@
   "type": "project",
   "require": {
     "twig/twig": "^3.0",
-    "symfony/webpack-encore-bundle": "^2.3",
-    "symfony/ux-turbo": "^2.31",
-    "symfony/stimulus-bundle": "^2.31"
+    "vlucas/phpdotenv": "^5.6"
   },
   "license": "MIT",
   "autoload": {
@@ -15,8 +13,12 @@
     }
   },
   "scripts": {
-    "post-install-cmd": [
+    "build:css": [
+      "@php -r \"if (!file_exists('node_modules')) { echo 'Run npm install first'; exit(1); }\"",
       "npm run build:css"
+    ],
+    "post-install-cmd": [
+      "@php -r \"echo 'Run npm install && npm run build:css to compile Tailwind CSS'.PHP_EOL;\""
     ]
   },
   "authors": [

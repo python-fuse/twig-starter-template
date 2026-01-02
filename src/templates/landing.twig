@@ -1,12 +1,7 @@
-{# This is the landing template, its extends the base template #}
+{# This is the landing template, it extends the base template #}
 {% extends "base.twig" %}
 
 {% block title %}{{ title }}{% endblock %}
-
-{% block styles %}
-    {{ parent() }}
-    <link rel="stylesheet" href="landing.css">
-{% endblock %}
 
 {% block content %}
     <main class="min-h-screen flex flex-col items-center justify-center">
@@ -15,10 +10,4 @@
         <p class="text-lg text-green-300">Read the Readme</p>
 
     </main>
-{% endblock %}
-
-{% block scripts %}
-    {{parent()}}
-        {# Import or write javascript directly inhere #}
-        {# <script src="script.js"></script> #}
 {% endblock %}
