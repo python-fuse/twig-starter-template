@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+/* Preline UI */
+@source "../../node_modules/preline/dist/*.js";
+@import "../../node_modules/preline/variants.css";
+
 /* Explicit content sources for class detection */
 @source "../templates/**/*.twig";
 @source "../**/*.php";
+
+/* Plugins */
+@plugin "@tailwindcss/forms";
+
+/* Preline UI opinionated styles */
+@layer base {
+
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
+/* Defaults hover styles on all devices */
+@custom-variant hover (&:hover);
