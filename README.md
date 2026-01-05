@@ -1,6 +1,6 @@
 # Twig Starter Template 🚀
 
-A modern PHP starter template with [Twig](https://twig.symfony.com/) templating engine and [Tailwind CSS v4](https://tailwindcss.com/) integration. Perfect for building fast, maintainable PHP applications with beautiful UI.
+A modern PHP starter template with [Twig](https://twig.symfony.com/) templating engine, [Tailwind CSS v4](https://tailwindcss.com/), and [Preline UI](https://preline.co/) components. Perfect for building fast, maintainable PHP applications with beautiful UI.
 
 **With love from [uCodes](https://github.com/python-fuse)** 💙
 
@@ -87,9 +87,11 @@ twig-starter-template/
 │   │   ├── landing.twig       # Landing page example
 │   │   ├── dashboard.twig     # Dashboard example
 │   │   └── 404.twig           # 404 error page
-│   └── styles/
-│       ├── tailwind.css       # Tailwind input file (configure here)
-│       └── out.tailwind.css   # Generated CSS (don't edit)
+│   ├── styles/
+│   │   ├── tailwind.css       # Tailwind input file (configure here)
+│   │   └── out.tailwind.css   # Generated CSS (don't edit)
+│   └── js/
+│       └── preline.js         # Preline UI JavaScript
 ├── cache/twig/                # Twig template cache
 ├── vendor/                    # Composer dependencies
 ├── composer.json              # PHP dependencies
@@ -230,6 +232,60 @@ Now whenever you add/remove Tailwind classes in your `.twig` files, the CSS rebu
 
 ---
 
+## 🧩 Using Preline UI
+
+This template includes [Preline UI](https://preline.co/), a collection of prebuilt UI components designed for Tailwind CSS.
+
+### Available Components
+
+Preline UI provides 50+ components including:
+- **Navigation:** Dropdowns, Navbars, Menus
+- **Overlays:** Modals, Tooltips, Popovers
+- **Data Display:** Accordions, Tabs, Carousels
+- **Forms:** Selects, Inputs, File Uploads
+- **And more!**
+
+### Usage Example
+
+```twig
+{# Dropdown Example #}
+<div class="hs-dropdown relative inline-flex">
+    <button type="button" class="hs-dropdown-toggle py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
+        Actions
+        <svg class="hs-dropdown-open:rotate-180 size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="hs-dropdown-menu hidden min-w-60 bg-white shadow-md rounded-lg mt-2 z-10">
+        <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100" href="#">Option 1</a>
+        <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100" href="#">Option 2</a>
+    </div>
+</div>
+```
+
+### How It's Set Up
+
+1. **CSS Variants** - Imported in `src/styles/tailwind.css`:
+   ```css
+   @import "../../node_modules/preline/variants.css";
+   @source "../../node_modules/preline/dist/*.js";
+   ```
+
+2. **JavaScript** - Loaded in `src/templates/base.twig`:
+   ```html
+   <script src="/js/preline.js"></script>
+   ```
+
+### Updating Preline JS
+
+If you reinstall `node_modules`, copy the Preline JS file again:
+
+```bash
+cp node_modules/preline/dist/preline.js src/js/preline.js
+```
+
+**Learn more:** [Preline UI Documentation](https://preline.co/docs)
+
+---
+
 ## 🔧 Configuration
 
 ### Twig Configuration
@@ -251,15 +307,27 @@ Tailwind v4 uses a **CSS-first configuration** approach. All configuration is do
 ```css
 @import "tailwindcss";
 
+/* Preline UI */
+@source "../../node_modules/preline/dist/*.js";
+@import "../../node_modules/preline/variants.css";
+
 /* Content sources for class detection */
 @source "../templates/**/*.twig";
 @source "../**/*.php";
 
-/* Custom theme extensions */
-@theme {
-  --color-brand: #3b82f6;
-  --font-display: "Inter", sans-serif;
+/* Plugins */
+@plugin "@tailwindcss/forms";
+
+/* Preline UI opinionated styles */
+@layer base {
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
 }
+
+/* Defaults hover styles on all devices */
+@custom-variant hover (&:hover);
 ```
 
 For more advanced customization, see the [Tailwind CSS v4 Documentation](https://tailwindcss.com/docs/v4-beta).
@@ -270,6 +338,7 @@ For more advanced customization, see the [Tailwind CSS v4 Documentation](https:/
 
 - **Twig Documentation:** [twig.symfony.com/doc](https://twig.symfony.com/doc/3.x/)
 - **Tailwind CSS:** [tailwindcss.com/docs](https://tailwindcss.com/docs)
+- **Preline UI:** [preline.co/docs](https://preline.co/docs)
 - **PHP Manual:** [php.net/manual](https://www.php.net/manual/en/)
 - **Composer:** [getcomposer.org](https://getcomposer.org/)
 
