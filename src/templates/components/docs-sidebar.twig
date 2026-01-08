@@ -1,0 +1,21 @@
+<aside class="hidden lg:block w-64 shrink-0 border-r border-white/5 bg-void-light">
+	<div class="sticky top-[65px] h-[calc(100vh-65px)] overflow-y-auto p-6">
+		<div class="space-y-8">
+			{% for section in sections %}
+				<div>
+					<h4 class="text-xs font-semibold uppercase tracking-wider text-smoke mb-3">{{ section.title }}</h4>
+					<ul class="space-y-1">
+						{% for link in section.links %}
+							<li>
+								<a href="#{{ link.id }}" class="block py-1.5 px-3 text-sm {{ link.active ? 'text-twig bg-twig/10 border-l-2 border-twig' : 'text-smoke hover:text-white transition-colors border-l-2 border-transparent hover:border-white/20' }}">
+									{{ link.label }}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</aside>
+

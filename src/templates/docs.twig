@@ -1,0 +1,200 @@
+{% extends "base.twig" %}
+
+{% block title %}Documentation - Twig Starter
+{% endblock %}
+
+{% set sidebar_sections = [
+	{
+		title: 'Getting Started',
+		links: [
+			{ id: 'introduction', label: 'Introduction', active: true },
+			{ id: 'installation', label: 'Installation' },
+			{ id: 'quick-start', label: 'Quick Start' }
+		]
+	},
+	{
+		title: 'Core Concepts',
+		links: [
+			{ id: 'project-structure', label: 'Project Structure' },
+			{ id: 'routing', label: 'Routing' },
+			{ id: 'templates', label: 'Twig Templates' }
+		]
+	},
+	{
+		title: 'Styling',
+		links: [
+			{ id: 'tailwind', label: 'Tailwind CSS' },
+			{ id: 'preline', label: 'Preline UI' }
+		]
+	}
+] %}
+
+{% set toc_links = [
+	{ id: 'introduction', label: 'Introduction' },
+	{ id: 'installation', label: 'Installation' },
+	{ id: 'quick-start', label: 'Quick Start' },
+	{ id: 'project-structure', label: 'Project Structure' },
+	{ id: 'routing', label: 'Routing' },
+	{ id: 'templates', label: 'Templates' },
+	{ id: 'tailwind', label: 'Tailwind CSS' },
+	{ id: 'preline', label: 'Preline UI' }
+] %}
+
+{% block content %}
+	<div class="min-h-screen flex flex-col">
+		{% include 'components/navbar.twig' with { subtitle: 'Documentation' } %}
+
+		<div class="flex-1 flex">
+			{% include 'components/docs-sidebar.twig' with { sections: sidebar_sections } %}
+
+			<main class="flex-1 min-w-0">
+				<div class="max-w-3xl mx-auto px-8 py-12">
+					<section id="introduction" class="mb-16">
+						<h1 class="text-4xl font-bold mb-4">Introduction</h1>
+						<p class="text-smoke text-lg leading-relaxed mb-6">
+							Twig Starter Template is a minimal, modern PHP starter that combines the power of 
+																																									Twig templating with Tailwind CSS v4 and Preline UI components.
+						</p>
+						{% include 'components/callout.twig' with { message: 'This documentation site is built using the template itself.' } %}
+					</section>
+
+					<section id="installation" class="mb-16">
+						<h2 class="text-2xl font-bold mb-4 pb-2 border-b border-white/5">Installation</h2>
+						<h3 class="text-lg font-semibold mt-6 mb-3">Prerequisites</h3>
+						<ul class="list-disc list-inside space-y-2 text-smoke mb-6">
+							<li>PHP 7.4 or higher</li>
+							<li>Composer</li>
+							<li>Node.js & npm</li>
+						</ul>
+						<h3 class="text-lg font-semibold mb-3">Clone the repository</h3>
+						{% include 'components/code-block.twig' with { 
+						class: 'mb-6',
+						content: '<p><span class="text-twig">$</span> git clone https://github.com/python-fuse/twig-starter-template.git</p><p><span class="text-twig">$</span> cd twig-starter-template</p>'
+					} %}
+						<h3 class="text-lg font-semibold mb-3">Install dependencies</h3>
+						{% include 'components/code-block.twig' with { 
+						content: '<p><span class="text-twig">$</span> composer install</p><p><span class="text-twig">$</span> <span class="text-npm">npm</span> install</p>'
+					} %}
+					</section>
+
+					<section id="quick-start" class="mb-16">
+						<h2 class="text-2xl font-bold mb-4 pb-2 border-b border-white/5">Quick Start</h2>
+						<p class="text-smoke mb-6">Build the CSS and start the development server:</p>
+						{% include 'components/code-block.twig' with { 
+						class: 'mb-6',
+						content: '<p><span class="text-twig">$</span> <span class="text-npm">npm</span> run build:css</p><p><span class="text-twig">$</span> php -S localhost:8000 -t src</p>'
+					} %}
+						<p class="text-smoke">Open
+							<a href="http://localhost:8000" class="text-twig hover:underline">http://localhost:8000</a>
+							in your browser.</p>
+					</section>
+
+					<section id="project-structure" class="mb-16">
+						<h2 class="text-2xl font-bold mb-4 pb-2 border-b border-white/5">Project Structure</h2>
+						{% include 'components/code-block.twig' with { 
+						is_pre: true,
+						content: 'twig-starter-template/
+├── src/
+│   ├── index.php          <span class="text-twig"># Router & entry point</span>
+│   ├── templates/         <span class="text-twig"># Twig templates</span>
+│   │   ├── base.twig
+│   │   └── ...
+│   ├── styles/
+│   │   ├── tailwind.css   <span class="text-twig"># Tailwind config</span>
+│   │   └── out.tailwind.css
+│   └── js/
+│       └── preline.js     <span class="text-twig"># Preline UI</span>
+├── cache/twig/
+├── vendor/
+├── composer.json
+└── package.json'
+					} %}
+					</section>
+
+					<section id="routing" class="mb-16">
+						<h2 class="text-2xl font-bold mb-4 pb-2 border-b border-white/5">Routing</h2>
+						<p class="text-smoke mb-6">Routes are defined in
+							<code class="bg-ash px-2 py-0.5 text-sm">src/index.php</code>
+							using a simple switch statement:</p>
+						{% include 'components/code-block.twig' with { 
+						is_pre: true,
+						content: '<span class="text-npm">switch</span> (<span class="text-twig">$path</span>) {
+    <span class="text-npm">case</span> <span class="text-yellow-400">\'/\'</span>:
+        <span class="text-npm">echo</span> <span class="text-twig">$twig</span>-><span class="text-white">render</span>(<span class="text-yellow-400">\'landing.twig\'</span>, [
+            <span class="text-yellow-400">\'title\'</span> => <span class="text-yellow-400">\'Home\'</span>
+        ]);
+        <span class="text-npm">break</span>;
+}'
+					} %}
+					</section>
+
+					<section id="templates" class="mb-16">
+						<h2 class="text-2xl font-bold mb-4 pb-2 border-b border-white/5">Twig Templates</h2>
+						<p class="text-smoke mb-6">Templates use Twig's inheritance system. Extend the base template:</p>
+						<div class="bg-ash border border-white/5 p-4 font-mono text-sm overflow-x-auto">
+							{% verbatim %}
+								<pre class="text-smoke"><span class="text-npm"></span>
+
+<span class="text-npm"></span>My Page<span class="text-npm"></span>
+
+<span class="text-npm"></span>
+    &lt;<span class="text-npm">h1</span>&gt;Hello, <span class="text-npm">{{</span> <span class="text-twig">name</span> <span class="text-npm">}}</span>&lt;/<span class="text-npm">h1</span>&gt;
+<span class="text-npm"></span></pre> {%</span> <span class="text-twig">endblock</span> <span class="text-npm">%}
+								{%</span> <span class="text-twig">block</span> content <span class="text-npm">%}
+								{%</span> <span class="text-twig">endblock</span> <span class="text-npm">%}
+								{%</span> <span class="text-twig">block</span> title <span class="text-npm">%}
+								{%</span> <span class="text-twig">extends</span> <span class="text-yellow-400">"base.twig"</span> <span class="text-npm">%}
+							{% endverbatim %}
+						</div>
+					</section>
+
+					<section id="tailwind" class="mb-16">
+						<h2 class="text-2xl font-bold mb-4 pb-2 border-b border-white/5">Tailwind CSS</h2>
+						<p class="text-smoke mb-6">Tailwind v4 uses CSS-first configuration in
+							<code class="bg-ash px-2 py-0.5 text-sm">src/styles/tailwind.css</code>:</p>
+						{% include 'components/code-block.twig' with { 
+						class: 'mb-6',
+						is_pre: true,
+						content: '<span class="text-npm">@import</span> <span class="text-yellow-400">"tailwindcss"</span>;
+
+<span class="text-npm">@source</span> <span class="text-yellow-400">"../templates/**/*.twig"</span>;
+<span class="text-npm">@source</span> <span class="text-yellow-400">"../**/*.php"</span>;
+
+<span class="text-npm">@theme</span> {
+    <span class="text-twig">--color-brand</span>: <span class="text-yellow-400">#8BC34A</span>;
+}'
+					} %}
+						<p class="text-smoke">Run
+							<code class="bg-ash px-2 py-0.5 text-sm">npm run watch:css</code>
+							during development for auto-rebuilds.</p>
+					</section>
+
+					<section id="preline" class="mb-16">
+						<h2 class="text-2xl font-bold mb-4 pb-2 border-b border-white/5">Preline UI</h2>
+						<p class="text-smoke mb-6">
+							<a href="https://preline.co" target="_blank" class="text-twig hover:underline">Preline UI</a>
+							components are pre-configured. Use them directly in your templates:
+						</p>
+						{% include 'components/code-block.twig' with { 
+						is_pre: true,
+						content: '&lt;<span class="text-npm">div</span> <span class="text-twig">class</span>=<span class="text-yellow-400">"hs-dropdown relative"</span>&gt;
+    &lt;<span class="text-npm">button</span> <span class="text-twig">class</span>=<span class="text-yellow-400">"hs-dropdown-toggle ..."</span>&gt;
+        Dropdown
+    &lt;/<span class="text-npm">button</span>&gt;
+    &lt;<span class="text-npm">div</span> <span class="text-twig">class</span>=<span class="text-yellow-400">"hs-dropdown-menu hidden ..."</span>&gt;
+        ...
+    &lt;/<span class="text-npm">div</span>&gt;
+&lt;/<span class="text-npm">div</span>&gt;'
+					} %}
+						<p class="text-smoke mt-6">
+							Browse all available components at
+							<a href="https://preline.co/docs" target="_blank" rel="noopener noreferrer" class="text-twig hover:underline">preline.co/docs</a>
+						</p>
+					</section>
+				</div>
+			</main>
+
+			{% include 'components/docs-toc.twig' with { links: toc_links } %}
+		</div>
+	</div>
+{% endblock %}

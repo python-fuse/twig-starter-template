@@ -1,0 +1,8 @@
+<div class="bg-ash border border-white/5 p-4 font-mono text-sm overflow-x-auto {{ class ?? '' }}">
+	{% if is_pre %}
+		<pre class="text-smoke">{{ content|raw }}</pre>
+	{% else %}
+		{{ content|raw }}
+	{% endif %}
+</div>
+
