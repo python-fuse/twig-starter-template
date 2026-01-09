@@ -27,14 +27,13 @@ $pages = [
 foreach ($pages as $output => $config) {
     $html = $twig->render($config[0], $config[1]);
     file_put_contents($outputDir . '/' . $output, $html);
-    echo "✅ Built: $output\n";
+    echo "- Built: $output\n";
 }
 
 copy(__DIR__ . '/src/styles/out.tailwind.css', $outputDir . '/styles/out.tailwind.css');
-echo "✅ Copied: styles/out.tailwind.css\n";
+echo "- Copied: styles/out.tailwind.css\n";
 
 copy(__DIR__ . '/src/js/preline.js', $outputDir . '/js/preline.js');
-echo "✅ Copied: js/preline.js\n";
+echo "- Copied: js/preline.js\n";
 
-echo "\n🚀 Static site built in /docs (base_url: $baseUrl)\n";
-
+echo "\n- Static site built in /docs (base_url: $baseUrl)\n";
