@@ -1,7 +1,7 @@
 <nav class="sticky top-0 z-50 bg-void/80 backdrop-blur-xl border-b border-white/5">
 	<div class="flex items-center justify-between px-6 py-4">
 		<div class="flex items-center gap-8">
-			<a href="/" class="flex items-center gap-2">
+			<a href="{{ base_url|default('') }}/" class="flex items-center gap-2">
 				<div class="w-3 h-3 bg-twig rotate-45"></div>
 				<span class="font-mono text-sm tracking-wider">TWIG STARTER</span>
 			</a>
@@ -11,7 +11,7 @@
 		</div>
 		<div class="flex items-center gap-6">
 			{% if show_docs_link %}
-				<a href="/docs" class="text-smoke hover:text-white transition-colors text-sm">Docs</a>
+				<a href="{{ base_url|default('') }}/docs" class="text-smoke hover:text-white transition-colors text-sm">Docs</a>
 			{% endif %}
 			<a href="https://github.com/python-fuse/twig-starter-template" class="inline-flex items-center gap-2 text-smoke hover:text-white transition-colors text-sm">
 				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

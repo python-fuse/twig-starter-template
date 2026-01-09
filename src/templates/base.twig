@@ -12,12 +12,13 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 		{% block styles %}
-			<link rel="stylesheet" href="/styles/out.tailwind.css">
+			<link rel="stylesheet" href="{{ base_url|default('') }}/styles/out.tailwind.css">
 		{% endblock %}
 	</head>
-	<body class="bg-void text-white antialiased"> {% block content %}{% endblock %}
+	<body class="bg-void text-white antialiased">
+		{% block content %}{% endblock %}
 		{% block scripts %}
-			<script src="/js/preline.js"></script>
+			<script src="{{ base_url|default('') }}/js/preline.js"></script>
 		{% endblock %}
 	</body>
 </html>
